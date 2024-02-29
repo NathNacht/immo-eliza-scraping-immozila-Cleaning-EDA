@@ -26,4 +26,24 @@ def remove_duplicates(house):
 house = remove_duplicates(house)
 
 
+# Removes all rows which are completely empty
+def remove_empty(house):
+    columns_to_compare = [col for col in house.columns if col != "property_id"]
+    #checks completely empty rows
+    house.dropna(how='all', inplace=True)
+    #checks if property-id is completely empty
+    house.dropna(how='all', subset=columns_to_compare, inplace=True)
+
+    return house
+
+
+# def remove_not_belgium(house):
+#     house["postal_code"] = house["postal_code"].str.strip(" ")
+#     house = house[house["postal_code"].str.len() <= 4]    
+#     return house
+
+house = remove_empty(house)
+# house = remove_not_belgium(house)
 house.info()
+
+ 
