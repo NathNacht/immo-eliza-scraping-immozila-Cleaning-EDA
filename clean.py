@@ -144,3 +144,6 @@ print("---Removing Appartments in Houses")
 print("TOTAL HOUSE RECORDS:",len(house))
 print("TOTAL APP RECORDS:",len(app))
 print("-------------------------------")
+
+house.to_csv("./data/cleaned/clean_house.csv", sep=',', index=False, encoding='utf-8') 
+app.to_csv("./data/cleaned/clean_app.csv", sep=',', index=False, encoding='utf-8')   
