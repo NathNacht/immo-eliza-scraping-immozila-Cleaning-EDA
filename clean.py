@@ -10,6 +10,22 @@ raw_apartement_te_koop_path = os.path.join(".", "data", "raw", "raw_apartement_t
 house = pd.read_csv(raw_huis_te_koop_path, sep=",")
 app = pd.read_csv(raw_apartement_te_koop_path, sep=",")
 
+
+def strip_all_columns(df):
+    cl = []
+    for columns in df:
+        cl.append(columns)
+    return cl
+
+
+def strip(df):
+    cl = strip_all_columns(df)
+    for column_name in cl:
+        if df[column_name].dtype == 'object':  # Check if the column contains object (string) values
+            df.loc[:, column_name] = df[column_name].str.strip()
+    return df
+
+
 def removedup_id(df):
     """
     Remove duplicate records based on property_id
@@ -61,7 +77,23 @@ def remove_empty(df):
     df.dropna(how='all', subset=columns_to_compare, inplace=True)
     return df
 
-    
+def remove_house_in_app(df):
+    df = df[~df["property_type"].isin(["HOUSE", "HOUSE_GROUP"])]
+    return df
+
+
+def remove_app_in_house(df):
+    df = df[df["property_type"].isin(["HOUSE", "HOUSE_GROUP"])]
+    return df
+
+
+print("-------------------------------")
+print("TOTAL HOUSE RECORDS:",len(house))
+print("TOTAL APP RECORDS:",len(app))
+print("-------------------------------")
+print("---Stripping blancs from all columns")
+house = strip(house)
+app = strip(app)    
 print("-------------------------------")
 print("TOTAL HOUSE RECORDS:",len(house))
 print("TOTAL APP RECORDS:",len(app))
@@ -101,6 +133,14 @@ print("---Removing Empty records that only have property_id")
 remove_empty(house)
 remove_empty(app)
 print("-------------------------------")
+print("TOTAL HOUSE RECORDS:",len(house))
+print("TOTAL APP RECORDS:",len(app))
+print("-------------------------------")
+house = remove_app_in_house(house)
+app = remove_house_in_app(app)
+print("-------------------------------")
+print("---Removing House in Appartments")
+print("---Removing Appartments in Houses")
 print("TOTAL HOUSE RECORDS:",len(house))
 print("TOTAL APP RECORDS:",len(app))
 print("-------------------------------")
