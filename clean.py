@@ -42,6 +42,13 @@ def remove_dup_no_id(df):
     return df
 
 
+def remove_street_nr(df):
+    """
+    Function to remove street_name and house_number columns
+    """
+    df.drop(["street_name", "house_number"], axis="columns", inplace= True)
+    return df
+
 
 
     
@@ -70,5 +77,11 @@ remove_dup_no_id(house)
 print("---Removing Duplicates from Appartments that have the same property_id")
 remove_dup_no_id(app)
 print("-------------------------------")
+print("TOTAL HOUSE RECORDS:",len(house))
+print("TOTAL APP RECORDS:",len(app))
+print("-------------------------------")
+print("---Removing Streetnames and House Numbers")
+remove_street_nr(house)
+remove_street_nr(app)
 print("TOTAL HOUSE RECORDS:",len(house))
 print("TOTAL APP RECORDS:",len(app))
