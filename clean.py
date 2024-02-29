@@ -50,6 +50,16 @@ def remove_street_nr(df):
     return df
 
 
+def remove_empty(df):
+    """
+    Function to remove completely empty rows (where only property_id is filled in)
+    """
+    columns_to_compare = [col for col in df.columns if col != "property_id"]
+    #checks completely empty rows
+    df.dropna(how='all', inplace=True)
+    #checks if property-id is completely empty
+    df.dropna(how='all', subset=columns_to_compare, inplace=True)
+    return df
 
     
 print("-------------------------------")
@@ -83,5 +93,14 @@ print("-------------------------------")
 print("---Removing Streetnames and House Numbers")
 remove_street_nr(house)
 remove_street_nr(app)
+print("-------------------------------")
 print("TOTAL HOUSE RECORDS:",len(house))
 print("TOTAL APP RECORDS:",len(app))
+print("-------------------------------")
+print("---Removing Empty records that only have property_id")
+remove_empty(house)
+remove_empty(app)
+print("-------------------------------")
+print("TOTAL HOUSE RECORDS:",len(house))
+print("TOTAL APP RECORDS:",len(app))
+print("-------------------------------")
