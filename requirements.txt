@@ -28,3 +28,7 @@ tornado==6.1
 trove_classifiers==2024.2.23
 urllib3_secure_extra==0.1.0
 xmlrpclib==1.0.1
+numpy==1.26.4
+pandas==2.2.1
+seaborn==0.13.2
+
