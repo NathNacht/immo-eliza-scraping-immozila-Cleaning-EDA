@@ -7,6 +7,15 @@ import os
 raw_huis_te_koop_path = os.path.join(".", "data", "raw", "raw_huis_te_koop.csv")
 raw_apartement_te_koop_path = os.path.join(".", "data", "raw", "raw_apartement_te_koop.csv")
 
+#open a the file from bpost and lowercase all location names
+bpost_codes = pd.read_csv("data/raw/zipcodes_alpha_nl_new.csv", delimiter=";")
+bpost_codes[['Plaatsnaam', 'Hoofdgemeente', 'Provincie']] = bpost_codes[['Plaatsnaam', 'Hoofdgemeente', 'Provincie']].apply(lambda x: x.astype(str).str.lower())
+
+#open a the file from georef and lowercase all location names
+georef = pd.read_csv("data/raw/georef-belgium-postal-codes.csv", delimiter=";")
+georef[['Sub-municipality name (French)','Sub-municipality name (Dutch)', 'Sub-municipality name (German)']] = georef[['Sub-municipality name (French)','Sub-municipality name (Dutch)', 'Sub-municipality name (German)']].apply(lambda x: x.str.lower())
+georef_with_nl = georef[~georef['Sub-municipality name (Dutch)'].isna()] #drop NaN from the Dutch values
+
 house = pd.read_csv(raw_huis_te_koop_path, sep=",")
 app = pd.read_csv(raw_apartement_te_koop_path, sep=",")
 
@@ -85,6 +94,41 @@ def remove_house_in_app(df):
 def remove_app_in_house(df):
     df = df[df["property_type"].isin(["HOUSE", "HOUSE_GROUP"])]
     return df
+
+def open_and_lowercase(df):
+    """
+    The function lowercases all locality names to avoid ambiguity
+    """
+    df["locality_name"] = df["locality_name"].str.lower()
+    return df
+
+def drop_non_belgian(df):
+    """
+    The function checks if postal codes are in Belgium to remove non-belgian properties
+    """
+    df['is_belgian'] = df['postal_code'].astype(str).isin(bpost_codes['Postcode'].astype(str))
+
+    df.loc[df['is_belgian']==False]
+
+    df = df.drop(df[df['is_belgian'] == False].index)
+    return df
+
+def get_dutch_locality_name(current_locality_name):
+    """
+    The function translates the locality name into Dutch in case it exists
+    """
+    name_loc = georef_with_nl.loc[(georef_with_nl["Sub-municipality name (French)"] == current_locality_name) | (georef_with_nl["Sub-municipality name (German)"] == current_locality_name)]
+    if not name_loc.empty:
+        return(name_loc["Sub-municipality name (Dutch)"].iloc[0])
+    else:
+        return current_locality_name
+
+def change_locality_name(df):
+    df["locality_name"] = df["locality_name"].apply(get_dutch_locality_name)
+    return df
+
+def save_df_to_csv(df, filepath):
+    df.to_csv(filepath)
 
 
 print("-------------------------------")
