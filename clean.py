@@ -127,8 +127,6 @@ def change_locality_name(df):
     df["locality_name"] = df["locality_name"].apply(get_dutch_locality_name)
     return df
 
-def save_df_to_csv(df, filepath):
-    df.to_csv(filepath)
 
 
 print("-------------------------------")
