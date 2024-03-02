@@ -3,23 +3,6 @@ import numpy as np
 import seaborn as sns
 import os
 
-# Define the file paths using os.path.join to ensure compatibility
-raw_huis_te_koop_path = os.path.join(".", "data", "raw", "raw_huis_te_koop.csv")
-raw_apartement_te_koop_path = os.path.join(".", "data", "raw", "raw_apartement_te_koop.csv")
-
-#open a the file from bpost and lowercase all location names
-bpost_codes = pd.read_csv("data/raw/zipcodes_alpha_nl_new.csv", delimiter=";")
-bpost_codes[['Plaatsnaam', 'Hoofdgemeente', 'Provincie']] = bpost_codes[['Plaatsnaam', 'Hoofdgemeente', 'Provincie']].apply(lambda x: x.astype(str).str.lower())
-
-#open a the file from georef and lowercase all location names
-georef = pd.read_csv("data/raw/georef-belgium-postal-codes.csv", delimiter=";")
-georef[['Sub-municipality name (French)','Sub-municipality name (Dutch)', 'Sub-municipality name (German)']] = georef[['Sub-municipality name (French)','Sub-municipality name (Dutch)', 'Sub-municipality name (German)']].apply(lambda x: x.str.lower())
-georef_with_nl = georef[~georef['Sub-municipality name (Dutch)'].isna()] #drop NaN from the Dutch values
-
-house = pd.read_csv(raw_huis_te_koop_path, sep=",")
-app = pd.read_csv(raw_apartement_te_koop_path, sep=",")
-
-
 def strip_all_columns(df):
     cl = []
     for columns in df:
@@ -28,6 +11,9 @@ def strip_all_columns(df):
 
 
 def strip(df):
+    """
+    Function to strip whitespace from all columns of datatype = object
+    """
     cl = strip_all_columns(df)
     for column_name in cl:
         if df[column_name].dtype == 'object':  # Check if the column contains object (string) values
@@ -86,14 +72,22 @@ def remove_empty(df):
     df.dropna(how='all', subset=columns_to_compare, inplace=True)
     return df
 
+
 def remove_house_in_app(df):
+    """
+    Function to remove records that don't have property type = house or house_group for the house data
+    """
     df = df[~df["property_type"].isin(["HOUSE", "HOUSE_GROUP"])]
     return df
 
 
 def remove_app_in_house(df):
+    """
+    Function to remove house and house_group records for the appartement data
+    """
     df = df[df["property_type"].isin(["HOUSE", "HOUSE_GROUP"])]
     return df
+
 
 def open_and_lowercase(df):
     """
@@ -101,6 +95,7 @@ def open_and_lowercase(df):
     """
     df["locality_name"] = df["locality_name"].str.lower()
     return df
+
 
 def drop_non_belgian(df):
     """
@@ -113,6 +108,7 @@ def drop_non_belgian(df):
     df = df.drop(df[df['is_belgian'] == False].index)
     return df
 
+
 def get_dutch_locality_name(current_locality_name):
     """
     The function translates the locality name into Dutch in case it exists
@@ -123,9 +119,29 @@ def get_dutch_locality_name(current_locality_name):
     else:
         return current_locality_name
 
+
 def change_locality_name(df):
     df["locality_name"] = df["locality_name"].apply(get_dutch_locality_name)
     return df
+
+
+# Define the file paths using os.path.join to ensure compatibility
+raw_huis_te_koop_path = os.path.join(".", "data", "raw", "raw_huis_te_koop.csv")
+raw_apartement_te_koop_path = os.path.join(".", "data", "raw", "raw_apartement_te_koop.csv")
+zipcodes_alpha_nl_new = os.path.join(".", "data", "raw", "zipcodes_alpha_nl_new.csv")
+georef_belgium_postal_codes = os.path.join(".", "data", "raw", "georef-belgium-postal-codes.csv")
+
+#open a the file from bpost and lowercase all location names
+bpost_codes = pd.read_csv("data/raw/zipcodes_alpha_nl_new.csv", delimiter=";")
+bpost_codes[['Plaatsnaam', 'Hoofdgemeente', 'Provincie']] = bpost_codes[['Plaatsnaam', 'Hoofdgemeente', 'Provincie']].apply(lambda x: x.astype(str).str.lower())
+
+#open a the file from georef and lowercase all location names
+georef = pd.read_csv("data/raw/georef-belgium-postal-codes.csv", delimiter=";")
+georef[['Sub-municipality name (French)','Sub-municipality name (Dutch)', 'Sub-municipality name (German)']] = georef[['Sub-municipality name (French)','Sub-municipality name (Dutch)', 'Sub-municipality name (German)']].apply(lambda x: x.str.lower())
+georef_with_nl = georef[~georef['Sub-municipality name (Dutch)'].isna()] #drop NaN from the Dutch values
+
+house = pd.read_csv(raw_huis_te_koop_path, sep=",")
+app = pd.read_csv(raw_apartement_te_koop_path, sep=",")
 
 
 
