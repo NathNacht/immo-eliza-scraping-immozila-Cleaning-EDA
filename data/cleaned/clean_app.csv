@@ -1,4 +1,4 @@
-property_id,locality_name,postal_code,latitude,longitude,property_type,property_subtype,price,type_of_sale,number_of_rooms,living_area,kitchen_type,fully_equipped_kitchen,furnished,open_fire,terrace,terrace_area,garden,garden_area,surface_of_good,number_of_facades,swimming_pool,state_of_building,Hoofdgemeente,Provincie
+property_id,locality_name,postal_code,latitude,longitude,property_type,property_subtype,price,type_of_sale,number_of_rooms,living_area,kitchen_type,fully_equipped_kitchen,furnished,open_fire,terrace,terrace_area,garden,garden_area,surface_of_good,number_of_facades,swimming_pool,state_of_building,main_city,province
 11141961,sint-joost-ten-node,1210,,,APARTMENT,FLAT_STUDIO,120000.0,BUY_REGULAR,,33.0,NOT_INSTALLED,1.0,,0,1.0,6.0,,,,,,TO_BE_DONE_UP,sint-joost-ten-node,brussel
 11158977,elsene,1050,50.8327332,4.3641305,APARTMENT,APARTMENT,325000.0,BUY_REGULAR,,59.0,USA_SEMI_EQUIPPED,1.0,0.0,0,,,,,,2.0,0.0,AS_NEW,elsene,brussel
 11072105,brussel,1040,50.8435094,4.3702633,APARTMENT,APARTMENT,650000.0,BUY_REGULAR,,216.0,INSTALLED,1.0,0.0,0,,,,,,3.0,0.0,AS_NEW,etterbeek,brussel

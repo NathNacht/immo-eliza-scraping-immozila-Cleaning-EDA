@@ -1,4 +1,4 @@
-property_id,locality_name,postal_code,latitude,longitude,property_type,property_subtype,price,type_of_sale,number_of_rooms,living_area,kitchen_type,fully_equipped_kitchen,furnished,open_fire,terrace,terrace_area,garden,garden_area,surface_of_good,number_of_facades,swimming_pool,state_of_building,Hoofdgemeente,Provincie
+property_id,locality_name,postal_code,latitude,longitude,property_type,property_subtype,price,type_of_sale,number_of_rooms,living_area,kitchen_type,fully_equipped_kitchen,furnished,open_fire,terrace,terrace_area,garden,garden_area,surface_of_good,number_of_facades,swimming_pool,state_of_building,main_city,province
 11157483,ronse,9600,50.741809,3.6076012,HOUSE,HOUSE,245000.0,BUY_REGULAR,,146.0,INSTALLED,1.0,0.0,0,1.0,13.0,1.0,161.0,250.0,2.0,0.0,GOOD,ronse,oost-vlaanderen
 11156843,merelbeke,9820,51.0192495,3.7609567,HOUSE,HOUSE,315000.0,BUY_REGULAR,,126.0,INSTALLED,1.0,0.0,0,1.0,23.0,,,77.0,2.0,,GOOD,merelbeke,oost-vlaanderen
 11161362,forêt,4870,50.5639661,5.6754892,HOUSE,HOUSE,325000.0,BUY_REGULAR,,159.0,INSTALLED,1.0,,0,1.0,16.0,1.0,420.0,572.0,3.0,,AS_NEW,trooz,luik

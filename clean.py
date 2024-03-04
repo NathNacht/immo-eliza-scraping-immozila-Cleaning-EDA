@@ -128,6 +128,8 @@ def get_province(df):
     bpost_code_df = bpost_code_df.drop_duplicates()
     merged_df = pd.merge(df, bpost_code_df, left_on='postal_code', right_on='Postcode', how='inner')
     merged_df = merged_df.drop(columns=["Postcode", "is_belgian"])
+    new_column_names = {'Hoofdgemeente': 'main_city', 'Provincie': 'province'}
+    merged_df.rename(columns=new_column_names, inplace=True)
     return merged_df
 
 
