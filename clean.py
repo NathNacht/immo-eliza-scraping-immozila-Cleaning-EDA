@@ -41,6 +41,17 @@ def remove_none_prices(df):
     print("Number of records with empty price AFTER:", price_empty_after)
     return df
 
+def remove_none_living_area(df):
+    """
+    Remove records with empty living area
+    """
+    area_empty_before = df["living_area"].isnull().sum()
+    print("Number of records with empty area BEFORE:", area_empty_before)
+    df.dropna(subset=['living_area'], inplace=True)
+    area_empty_after = df["living_area"].isnull().sum()
+    print("Number of records with empty price AFTER:", area_empty_after)
+    return df
+
 
 def remove_dup_no_id(df):
     """
@@ -179,6 +190,13 @@ print("---Removing records with empty price field from Houses")
 remove_none_prices(house)
 print("---Removing records with empty price field from Appartements")
 remove_none_prices(app)
+print("-------------------------------")
+
+
+print("---Removing records with empty area field from Houses")
+remove_none_living_area(house)
+print("---Removing records with empty field from Appartements")
+remove_none_living_area(app)
 print("-------------------------------")
 
 print("TOTAL HOUSE RECORDS:",len(house))
