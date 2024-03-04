@@ -5,7 +5,7 @@ def heatmap(df):
     sns.heatmap(df.corr(), annot=True)
 
 def regplot(df, xs, ys):
-    sns.regplot(data = df, x=xs, y=ys, ci=None)
+    sns.regplot(data = df, x=xs, y=ys)
 
 def filter_cities(df, *cities):
     result = df[df["locality_name"].isin(cities)]
