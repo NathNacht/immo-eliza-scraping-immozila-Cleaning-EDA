@@ -1,7 +1,8 @@
-import pandas as pd
-import numpy as np
-import seaborn as sns
 import os
+import numpy as np
+import pandas as pd
+import seaborn as sns
+
 
 # Define the file paths using os.path.join to ensure compatibility
 raw_huis_te_koop_path = os.path.join(".", "data", "raw", "raw_huis_te_koop.csv")
@@ -183,6 +184,34 @@ app = remove_house_in_app(app)
 print("-------------------------------")
 print("---Removing House in Appartments")
 print("---Removing Appartments in Houses")
+print("TOTAL HOUSE RECORDS:",len(house))
+print("TOTAL APP RECORDS:",len(app))
+print("-------------------------------")
+
+house = open_and_lowercase(house)
+app = open_and_lowercase(app)
+print("-------------------------------")
+print("---Lowercasing Houses")
+print("---Lowercasing Appartments")
+print("TOTAL HOUSE RECORDS:",len(house))
+print("TOTAL APP RECORDS:",len(app))
+print("-------------------------------")
+
+house = drop_non_belgian(house)
+app = drop_non_belgian(app)
+print("-------------------------------")
+print("---Removing Houses outside Belgium")
+print("---Removing Appartments outside Belgium")
+print("TOTAL HOUSE RECORDS:",len(house))
+print("TOTAL APP RECORDS:",len(app))
+print("-------------------------------")
+
+
+house = change_locality_name(house)
+app = change_locality_name(app)
+print("-------------------------------")
+print("--- Translation into Dutch: Houses")
+print("---Translation into Dutch: Appartments")
 print("TOTAL HOUSE RECORDS:",len(house))
 print("TOTAL APP RECORDS:",len(app))
 print("-------------------------------")
