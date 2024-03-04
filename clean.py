@@ -122,6 +122,14 @@ def change_locality_name(df):
     df["locality_name"] = df["locality_name"].apply(get_dutch_locality_name)
     return df
 
+def get_province(df):
+    df["postal_code"] = df["postal_code"].astype(int)
+    bpost_code_df = bpost_codes[["Postcode","Hoofdgemeente","Provincie"]]
+    bpost_code_df = bpost_code_df.drop_duplicates()
+    merged_df = pd.merge(df, bpost_code_df, left_on='postal_code', right_on='Postcode', how='inner')
+    merged_df = merged_df.drop(columns=["Postcode", "is_belgian"])
+    return merged_df
+
 
 # Define the file paths using os.path.join to ensure compatibility
 raw_huis_te_koop_path = os.path.join(".", "data", "raw", "raw_huis_te_koop.csv")
@@ -240,6 +248,15 @@ print("TOTAL HOUSE RECORDS:",len(house))
 print("TOTAL APP RECORDS:",len(app))
 print("-------------------------------")
 
+house = get_province(house)
+app = get_province(app)
+print("-------------------------------")
+print("--- Getting Province: Houses")
+print("---Getting Province: Apartments")
+print("-------------------------------")
+print("TOTAL HOUSE RECORDS:",len(house))
+print("TOTAL APP RECORDS:",len(app))
+print("-------------------------------")
 
 house.to_csv("./data/cleaned/clean_house.csv", sep=',', index=False, encoding='utf-8') 
 app.to_csv("./data/cleaned/clean_app.csv", sep=',', index=False, encoding='utf-8')   
