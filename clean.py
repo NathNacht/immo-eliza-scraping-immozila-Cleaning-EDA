@@ -208,7 +208,6 @@ print("---Removing records with empty price field from Appartements")
 remove_none_prices(app)
 print("-------------------------------")
 
-
 print("---Removing records with empty area field from Houses")
 remove_none_living_area(house)
 print("---Removing records with empty field from Appartements")
@@ -217,9 +216,9 @@ print("-------------------------------")
 
 
 print("---Removing outliers in living area from Houses")
-remove_outliers_living_area(house)
+house = remove_outliers_living_area(house)
 print("---Removing utliers in living area from Appartements")
-remove_outliers_living_area(app)
+app = remove_outliers_living_area(app)
 print("-------------------------------")
 
 print("TOTAL HOUSE RECORDS:",len(house))
