@@ -57,11 +57,15 @@ def remove_outliers_living_area (df):
     Remove too large or to small living area based on interquartile range
     """
     seventy_fifth = df["living_area"].quantile(0.75)
+    print("75th percentile = ", seventy_fifth)
     twenty_fifth = df["living_area"].quantile(0.25)
+    print("25th percentile = ", twenty_fifth)
     area_iqr = seventy_fifth-twenty_fifth
+    print("area iqr = ", area_iqr)
     upper = seventy_fifth + (1.5*area_iqr)
     lower = twenty_fifth - (1.5*area_iqr)
     df = df.loc[(df["living_area"] <= upper)&(df["living_area"] >= lower)]
+    print(df["living_area"].describe())
     return df
 
 
