@@ -52,6 +52,18 @@ def remove_none_living_area(df):
     print("Number of records with empty price AFTER:", area_empty_after)
     return df
 
+def remove_outliers_living_area (df):
+    """
+    Remove too large or to small living area based on interquartile range
+    """
+    seventy_fifth = df["living_area"].quantile(0.75)
+    twenty_fifth = df["living_area"].quantile(0.25)
+    area_iqr = seventy_fifth-twenty_fifth
+    upper = seventy_fifth + (1.5*area_iqr)
+    lower = twenty_fifth - (1.5*area_iqr)
+    filtered_df = df.loc[(df["living_area"] <= upper)&(df["living_area"] >= lower)]
+    return filtered_df
+
 
 def remove_dup_no_id(df):
     """
@@ -197,6 +209,13 @@ print("---Removing records with empty area field from Houses")
 remove_none_living_area(house)
 print("---Removing records with empty field from Appartements")
 remove_none_living_area(app)
+print("-------------------------------")
+
+
+print("---Removing outliers in living area from Houses")
+remove_outliers_living_area(house)
+print("---Removing utliers in living area from Appartements")
+remove_outliers_living_area(app)
 print("-------------------------------")
 
 print("TOTAL HOUSE RECORDS:",len(house))
