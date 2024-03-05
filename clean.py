@@ -61,8 +61,8 @@ def remove_outliers_living_area (df):
     area_iqr = seventy_fifth-twenty_fifth
     upper = seventy_fifth + (1.5*area_iqr)
     lower = twenty_fifth - (1.5*area_iqr)
-    filtered_df = df.loc[(df["living_area"] <= upper)&(df["living_area"] >= lower)]
-    return filtered_df
+    df = df.loc[(df["living_area"] <= upper)&(df["living_area"] >= lower)]
+    return df
 
 
 def remove_dup_no_id(df):
