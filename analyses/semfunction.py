@@ -18,3 +18,7 @@ def state_of_building(df, *state):
 def drop_object_columns(df):
     fdf = df[["price", "number_of_rooms", "living_area", "terrace_area", "garden_area", "surface_of_good", "number_of_facades"]]
     return fdf
+
+def drop_object_columns_app(df):
+    fdf = df[["price", "number_of_rooms", "living_area", "terrace_area", "garden_area", "number_of_facades"]]
+    return fdf
