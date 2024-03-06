@@ -1,8 +1,13 @@
 # Immozil(l)a - Cleaning / EDA 
-[![forthebadge made-with-python](https://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 ![pandas](https://img.shields.io/badge/Pandas-2C2D72?style=for-the-badge&logo=pandas&logoColor=white)
 ![vsCode](https://img.shields.io/badge/VSCode-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white
 )
+![Matplotlib](https://img.shields.io/badge/Matplotlib-%23ffffff.svg?style=for-the-badge&logo=Matplotlib&logoColor=black)
+![Plotly](https://img.shields.io/badge/Plotly-%233F4F75.svg?style=for-the-badge&logo=plotly&logoColor=white)
+
+
+
 
 
 ## 📖 Description
@@ -60,13 +65,19 @@ $ python3 clean.py
 * The output will be stored in ./data/cleaned/clean_app.csv and ./data/cleaned/clean_house.csv
 
 ## 👾 Cleaning steps
+1. Removing variables:
+   
 | variable to remove | reason                                    |
 |--------------------|-------------------------------------------|
 | surface_of_good    | in apartments dataset it is always empty  |
 |    property_id     | as all records have a unique property_id  |
-|   property_type    | Datasets contain only houses or apartments|
+|   property_type    | datasets contain only houses or apartments|
 |      terrace       | boolean,we can deduct from terrace surface|
 |      garden        | boolean,we can deduct from terrace surface|
+
+2. Inspection of the outliers using ```IQR```.
+3. Removal of clearly erroneous outliers in the ```living_area``` column.
+
 
 
 
@@ -104,4 +115,4 @@ $ python3 clean.py
 
 ## 📜 Timeline
 
-This project was created in 5 days.
+This project was implemented in 5 days.
