@@ -60,7 +60,13 @@ $ python3 clean.py
 * The output will be stored in ./data/cleaned/clean_app.csv and ./data/cleaned/clean_house.csv
 
 ## 👾 Cleaning steps
-
+| variable to remove | reason                                    |
+|--------------------|-------------------------------------------|
+| surface_of_good    | in apartments dataset it is always empty  |
+|    property_id     | as all records have a unique property_id  |
+|   property_type    | Datasets contain only houses or apartments|
+|      terrace       | boolean,we can deduct from terrace surface|
+|      garden        | boolean,we can deduct from terrace surface|
 
 
 
