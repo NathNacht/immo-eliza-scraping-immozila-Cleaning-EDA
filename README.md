@@ -115,4 +115,4 @@ $ python3 clean.py
 
 ## 📜 Timeline
 
-This project was created in 5 days.
+This project was implemented in 5 days.
