@@ -82,7 +82,9 @@ $ python3 clean.py
 
 
 ## 🚀 Usage
+The project helps to answer questions that are arise when inspecting a real estate dataset: what are the most important values, what is the distribution of observations, what categories of real estate we have. 
 
+To answer these questions, we used Pandas, a data analysis tool that helps to treat tabular data and perform operations on it. The observations are illustrated by various charts created with the usage of such tools as Plotly, Seaborn, Matplotlib. In the file ```immozila-analyse.ipynb``` you can find these charts along with the comments and lines of code to create them.
 
 
 ## 🤖 Project File structure
